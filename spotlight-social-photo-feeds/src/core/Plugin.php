@@ -2,7 +2,6 @@
 
 namespace RebelCode\Spotlight\Instagram;
 
-use Dhii\Modular\Module\Exception\ModuleExceptionInterface;
 use Psr\Container\ContainerInterface;
 use RebelCode\Spotlight\Instagram\Di\Container;
 use RebelCode\Spotlight\Instagram\Utils\Arrays;
@@ -97,8 +96,6 @@ class Plugin implements ContainerInterface
      * Runs the plugin.
      *
      * @since 0.2
-     *
-     * @throws ModuleExceptionInterface If a module encounters an error while running.
      */
     public function run()
     {

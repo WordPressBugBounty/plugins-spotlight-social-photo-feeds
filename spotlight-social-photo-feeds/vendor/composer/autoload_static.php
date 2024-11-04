@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20
+class ComposerStaticInitbd5b9cada860447312954188d6593fb2
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -35,17 +35,12 @@ class ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20
         array (
             'Liborm85\\ComposerVendorCleaner\\' => 31,
         ),
-        'I' => 
-        array (
-            'Interop\\Container\\' => 18,
-        ),
         'D' => 
         array (
             'Dhii\\Util\\String\\' => 17,
             'Dhii\\Transformer\\' => 17,
             'Dhii\\Services\\' => 14,
             'Dhii\\Output\\' => 12,
-            'Dhii\\Modular\\Module\\' => 20,
             'Dhii\\Factory\\' => 13,
             'Dhii\\Exception\\' => 15,
         ),
@@ -113,10 +108,6 @@ class ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20
         array (
             0 => __DIR__ . '/..' . '/liborm85/composer-vendor-cleaner/src',
         ),
-        'Interop\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/container-interop/service-provider/src',
-        ),
         'Dhii\\Util\\String\\' => 
         array (
             0 => __DIR__ . '/..' . '/dhii/stringable-interface/src',
@@ -132,10 +123,6 @@ class ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20
         'Dhii\\Output\\' => 
         array (
             0 => __DIR__ . '/..' . '/dhii/output-renderer-interface/src',
-        ),
-        'Dhii\\Modular\\Module\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dhii/module-interface/src',
         ),
         'Dhii\\Factory\\' => 
         array (
@@ -154,9 +141,9 @@ class ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4d990970cce7ca76f37a2aed3e98cd20::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbd5b9cada860447312954188d6593fb2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbd5b9cada860447312954188d6593fb2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbd5b9cada860447312954188d6593fb2::$classMap;
 
         }, null, ClassLoader::class);
     }

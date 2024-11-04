@@ -2,27 +2,27 @@
 
 namespace RebelCode\Spotlight\Instagram\Modules;
 
-use Dhii\Services\Factories\Alias;
-use Dhii\Services\Factories\Constructor;
-use Dhii\Services\Factories\FuncService;
-use Dhii\Services\Factories\StringService;
-use Dhii\Services\Factories\Value;
-use Dhii\Services\Factory;
-use Psr\Container\ContainerInterface;
-use RebelCode\Spotlight\Instagram\Actions\IgImageProxy;
-use RebelCode\Spotlight\Instagram\Config\WpOption;
-use RebelCode\Spotlight\Instagram\Di\ArrayExtension;
-use RebelCode\Spotlight\Instagram\Di\EndPointService;
-use RebelCode\Spotlight\Instagram\Module;
-use RebelCode\Spotlight\Instagram\Modules\Dev\DevModule;
-use RebelCode\Spotlight\Instagram\RestApi\EndPoints\Embed\CreatePostEndPoint;
-use RebelCode\Spotlight\Instagram\Utils\Arrays;
-use RebelCode\Spotlight\Instagram\Wp\AdminPage;
-use RebelCode\Spotlight\Instagram\Wp\Asset;
-use RebelCode\Spotlight\Instagram\Wp\Menu;
-use RebelCode\Spotlight\Instagram\Wp\PostType;
-use RebelCode\Spotlight\Instagram\Wp\SubMenu;
 use WP_Screen;
+use RebelCode\Spotlight\Instagram\Wp\SubMenu;
+use RebelCode\Spotlight\Instagram\Wp\PostType;
+use RebelCode\Spotlight\Instagram\Wp\Menu;
+use RebelCode\Spotlight\Instagram\Wp\Asset;
+use RebelCode\Spotlight\Instagram\Wp\AdminPage;
+use RebelCode\Spotlight\Instagram\Utils\Arrays;
+use RebelCode\Spotlight\Instagram\RestApi\EndPoints\Embed\CreatePostEndPoint;
+use RebelCode\Spotlight\Instagram\Modules\Dev\DevModule;
+use RebelCode\Spotlight\Instagram\Module;
+use RebelCode\Spotlight\Instagram\Di\EndPointService;
+use RebelCode\Spotlight\Instagram\Di\ArrayExtension;
+use RebelCode\Spotlight\Instagram\Config\WpOption;
+use RebelCode\Spotlight\Instagram\Actions\IgImageProxy;
+use Psr\Container\ContainerInterface;
+use Dhii\Services\Factory;
+use Dhii\Services\Factories\Value;
+use Dhii\Services\Factories\StringService;
+use Dhii\Services\Factories\FuncService;
+use Dhii\Services\Factories\Constructor;
+use Dhii\Services\Factories\Alias;
 
 /**
  * The module for the UI front-end of the plugin.
@@ -180,6 +180,8 @@ class UiModule extends Module
                     // The main admin app
                     'sli-admin' => Asset::script("{$url}/admin-app.js", $ver, [
                         'sli-editor',
+                        'wp-element',
+                        'wp-i18n'
                     ]),
 
                     /* === WP BLOCK APP === */

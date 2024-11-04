@@ -2,17 +2,25 @@
 
 namespace RebelCode\Spotlight\Instagram\Modules;
 
-use Dhii\Services\Factories\GlobalVar;
-use Dhii\Services\Factories\Value;
-use Dhii\Services\Factory;
-use Psr\Container\ContainerInterface;
-use RebelCode\Spotlight\Instagram\Module;
-use RebelCode\Spotlight\Instagram\Utils\Arrays;
-use RebelCode\Spotlight\Instagram\Wp\CronJob;
-use RebelCode\Spotlight\Instagram\Wp\Menu;
-use RebelCode\Spotlight\Instagram\Wp\NoticesManager;
-use RebelCode\Spotlight\Instagram\Wp\PostType;
 use RebelCode\Spotlight\Instagram\Wp\Shortcode;
+use RebelCode\Spotlight\Instagram\Wp\PostType;
+use RebelCode\Spotlight\Instagram\Wp\NoticesManager;
+use RebelCode\Spotlight\Instagram\Wp\Notice;
+use RebelCode\Spotlight\Instagram\Wp\Menu;
+use RebelCode\Spotlight\Instagram\Wp\CronJob;
+use RebelCode\Spotlight\Instagram\Utils\Arrays;
+use RebelCode\Spotlight\Instagram\PostTypes\AccountPostType;
+use RebelCode\Spotlight\Instagram\Module;
+use RebelCode\Spotlight\Instagram\Di\ArrayExtension;
+use RebelCode\Spotlight\Instagram\Config\WpOption;
+use RebelCode\Spotlight\Instagram\Config\ConfigSet;
+use RebelCode\Spotlight\Instagram\Config\ConfigEntry;
+use Psr\Container\ContainerInterface;
+use Dhii\Services\Factory;
+use Dhii\Services\Factories\Value;
+use Dhii\Services\Factories\GlobalVar;
+
+use Dhii\Services\Factories\FuncService;
 
 /**
  * A module that contains services for various WordPress objects.
@@ -46,6 +54,26 @@ class WordPressModule extends Module
                     return new NoticesManager($staticUrl . '/notices.js', $nonce, $action, $notices);
                 }
             ),
+            'notices/term_notice' => new Factory(['config/show_sli_term_notice'], function (ConfigEntry $option) {
+                return new Notice('term_notice', Notice::WARNING, Notice::disableOption($option),
+                    sprintf(
+                        /* translators: %1$s Personal accounts doc link, %2$s Learn more about this change doc link */
+                        __( '<b>Major API Update:</b> We\'ve detected that you\'re using <a href="%1$s" target="_blank">personal accounts</a> to display your Instagram feed. Instagram will soon no longer allow the use of personal accounts within Spotlight. <a href="%2$s" target="_blank">Learn more about this change</a> and what you need to do to prepare for it.', 'sli' ),
+                        esc_url( 'https://docs.spotlightwp.com/article/551-connecting-an-instagram-personal-account' ),
+                        esc_url( 'https://docs.spotlightwp.com/article/884-preparing-for-the-end-of-instagram-basic-display-api-what-to-expect-and-how-to-adapt' )
+                    )
+                );
+            }),
+            'notices' => new ArrayExtension([
+                'notices/term_notice',
+            ]),
+            'config/show_sli_term_notice' => new Factory([], function () {
+                return new WpOption('sli_show_term_notice', 0, true, WpOption::SANITIZE_BOOL);
+            }),
+            'migrations/*/check_personal_account' => new FuncService(['@accounts/cpt','@config/set'], function ($v1, $v2, PostType $accounts, ConfigSet $cfg) {
+                $account = AccountPostType::findPersonalAccount($accounts);
+                $cfg->get('personalAccountNotice')->setValue(!empty($account));
+            }),
         ];
     }
 
@@ -89,5 +117,24 @@ class WordPressModule extends Module
             $nm->handleAjax();
             die;
         });
+
+        $nm = $c->get('wp/notices/manager');
+        $cfg = $c->get('config/set');
+        if ($cfg->get('personalAccountNotice')->getValue()) {
+            $nm->show('term_notice');
+        }
+
+    }
+
+    public function getExtensions(): array
+    {
+        return [
+            'config/entries' => new ArrayExtension([
+                'personalAccountNotice' => 'config/show_sli_term_notice',
+            ]),
+            'migrator/migrations' => new ArrayExtension([
+                'migrations/*/check_personal_account',
+            ]),
+        ];
     }
 }

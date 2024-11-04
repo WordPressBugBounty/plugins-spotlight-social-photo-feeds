@@ -21,12 +21,10 @@ return array(
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Liborm85\\ComposerVendorCleaner\\' => array($vendorDir . '/liborm85/composer-vendor-cleaner/src'),
-    'Interop\\Container\\' => array($vendorDir . '/container-interop/service-provider/src'),
     'Dhii\\Util\\String\\' => array($vendorDir . '/dhii/stringable-interface/src'),
     'Dhii\\Transformer\\' => array($vendorDir . '/dhii/transformer-interface/src'),
     'Dhii\\Services\\' => array($vendorDir . '/dhii/services/src'),
     'Dhii\\Output\\' => array($vendorDir . '/dhii/output-renderer-interface/src'),
-    'Dhii\\Modular\\Module\\' => array($vendorDir . '/dhii/module-interface/src'),
     'Dhii\\Factory\\' => array($vendorDir . '/dhii/factory-interface/src'),
     'Dhii\\Exception\\' => array($vendorDir . '/dhii/exception-interface/src'),
 );

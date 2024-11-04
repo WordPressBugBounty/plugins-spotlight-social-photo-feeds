@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RebelCode\Spotlight\Instagram\Wp;
 
-use RebelCode\Spotlight\Instagram\Utils\Arrays;
 use RebelCode\Spotlight\Instagram\Utils\Functions;
+use RebelCode\Spotlight\Instagram\Utils\Arrays;
 
 class NoticesManager
 {
@@ -94,7 +94,7 @@ class NoticesManager
     /** Actually enqueues the script and localizes it */
     public function enqueueScripts()
     {
-        wp_enqueue_script('sli-admin-notices', $this->script, ['jquery'], SL_INSTA_VERSION, true);
+        wp_enqueue_script('sli-admin-notices', $this->script, ['jquery', 'wp-element', 'wp-i18n'], SL_INSTA_VERSION, true);
 
         wp_localize_script('sli-admin-notices', 'SliNoticesL10n', [
             'ajaxUrl' => admin_url('admin-ajax.php'),

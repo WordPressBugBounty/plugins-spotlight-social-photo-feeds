@@ -1,44 +1,6 @@
 {
     "packages": [
         {
-            "name": "container-interop/service-provider",
-            "version": "v0.4.1",
-            "version_normalized": "0.4.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/container-interop/service-provider.git",
-                "reference": "e04441ca21ef03e10dce70b0af29269281eec6dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/container-interop/service-provider/zipball/e04441ca21ef03e10dce70b0af29269281eec6dc",
-                "reference": "e04441ca21ef03e10dce70b0af29269281eec6dc",
-                "shasum": ""
-            },
-            "require": {
-                "psr/container": "^1.0 || ^2.0"
-            },
-            "time": "2023-12-14T14:50:12+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Interop\\Container\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Promoting container interoperability through standard service providers",
-            "homepage": "https://github.com/container-interop/service-provider",
-            "support": {
-                "issues": "https://github.com/container-interop/service-provider/issues",
-                "source": "https://github.com/container-interop/service-provider/tree/v0.4.1"
-            },
-            "install-path": "../container-interop/service-provider"
-        },
-        {
             "name": "dhii/exception-interface",
             "version": "v0.2",
             "version_normalized": "0.2.0.0",
@@ -150,59 +112,6 @@
             },
             "abandoned": true,
             "install-path": "../dhii/factory-interface"
-        },
-        {
-            "name": "dhii/module-interface",
-            "version": "v0.2.0-alpha1",
-            "version_normalized": "0.2.0.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/module-interface.git",
-                "reference": "cb2eaaac0fa4bd4a82bc2b38c10e3a794ce32d52"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/module-interface/zipball/cb2eaaac0fa4bd4a82bc2b38c10e3a794ce32d52",
-                "reference": "cb2eaaac0fa4bd4a82bc2b38c10e3a794ce32d52",
-                "shasum": ""
-            },
-            "require": {
-                "container-interop/service-provider": "^0.4",
-                "php": "^7.1",
-                "psr/container": "^1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.0 | ^7.0"
-            },
-            "time": "2020-04-10T14:27:05+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.2.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Modular\\Module\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces for modules",
-            "support": {
-                "issues": "https://github.com/Dhii/module-interface/issues",
-                "source": "https://github.com/Dhii/module-interface/tree/v0.2.0-alpha1"
-            },
-            "install-path": "../dhii/module-interface"
         },
         {
             "name": "dhii/output-renderer-interface",
@@ -423,17 +332,17 @@
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "2.6.2",
-            "version_normalized": "2.6.2.0",
+            "version": "2.8.1",
+            "version_normalized": "2.8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "ea3a288e52ff74c755b3c1eb857f41c5a2d899e5"
+                "reference": "cc31279d088909135b6b2d8b4f2696312f5731fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/ea3a288e52ff74c755b3c1eb857f41c5a2d899e5",
-                "reference": "ea3a288e52ff74c755b3c1eb857f41c5a2d899e5",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/cc31279d088909135b6b2d8b4f2696312f5731fc",
+                "reference": "cc31279d088909135b6b2d8b4f2696312f5731fc",
                 "shasum": ""
             },
             "require": {
@@ -448,7 +357,7 @@
                 "szepeviktor/phpstan-wordpress": "^1.3",
                 "wp-coding-standards/wpcs": "^2.3"
             },
-            "time": "2023-12-31T12:29:30+00:00",
+            "time": "2024-09-19T15:55:19+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -468,7 +377,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Freemius/wordpress-sdk/issues",
-                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.6.2"
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.8.1"
             },
             "install-path": "../freemius/wordpress-sdk"
         },
@@ -537,29 +446,24 @@
         },
         {
             "name": "psr/container",
-            "version": "1.0.0",
-            "version_normalized": "1.0.0.0",
+            "version": "1.1.1",
+            "version_normalized": "1.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.2.0"
             },
-            "time": "2017-02-14T16:28:37+00:00",
+            "time": "2021-03-05T17:36:06+00:00",
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -573,7 +477,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common Container Interface (PHP FIG PSR-11)",
@@ -587,7 +491,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/master"
+                "source": "https://github.com/php-fig/container/tree/1.1.1"
             },
             "install-path": "../psr/container"
         },
@@ -648,24 +552,24 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
-            "version_normalized": "1.0.2.0",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
-            "time": "2023-04-10T20:10:41+00:00",
+            "time": "2024-04-15T12:06:14+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -688,7 +592,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -700,33 +604,33 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
             "install-path": "../psr/http-factory"
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
-            "version_normalized": "1.0.1.0",
+            "version": "1.1",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
-            "time": "2016-08-06T14:39:51+00:00",
+            "time": "2023-04-04T09:50:52+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -756,7 +660,7 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
             "install-path": "../psr/http-message"
         },

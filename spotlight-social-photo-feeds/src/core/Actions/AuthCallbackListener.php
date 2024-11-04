@@ -65,13 +65,15 @@ class AuthCallbackListener
             return;
         }
 
-        if (!current_user_can('manage_options')) {
-            exit(1);
-        }
-
         $nonce = filter_input(INPUT_GET, 'nonce', FILTER_DEFAULT);
         if (!wp_verify_nonce($nonce, self::NONCE_ACTION)) {
-            exit(1);
+            status_header(401);
+            wp_die('You are not allowed to do that.', '401 Unauthorized');
+        }
+
+        if (!current_user_can('manage_options')) {
+            status_header(403);
+            wp_die('You do not have admin permissions to connect Spotlight accounts.', '403 Forbidden');
         }
 
         try {
@@ -107,7 +109,8 @@ class AuthCallbackListener
                         "<strong>{$pageName}</strong>"
                     );
 
-                    $dieHtml = sprintf('<p>%2$s</p><p><a href="%1$s">%3$s</a></p>',
+                    $dieHtml = sprintf(
+                        '<p>%2$s</p><p><a href="%1$s">%3$s</a></p>',
                         $this->businessAuthUrl,
                         $message,
                         'Choose another page'
@@ -127,7 +130,7 @@ class AuthCallbackListener
             // Notify parent window of successful connection
             ?>
             <script type="text/javascript">
-                setTimeout(function () {
+                setTimeout(function() {
                     if (window.opener && window.opener.SliAccountManagerState) {
                         window.opener.SliAccountManagerState.connectSuccess = true;
                         window.opener.SliAccountManagerState.connectedId = <?= $accountId ?? 'null' ?>;

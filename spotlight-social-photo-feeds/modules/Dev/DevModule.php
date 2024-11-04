@@ -2,14 +2,14 @@
 
 namespace RebelCode\Spotlight\Instagram\Modules\Dev;
 
-use Dhii\Services\Extension;
-use Dhii\Services\Factories\Constructor;
-use Dhii\Services\Factories\Value;
-use Dhii\Services\Factory;
-use Psr\Container\ContainerInterface;
-use RebelCode\Spotlight\Instagram\Module;
-use RebelCode\Spotlight\Instagram\Wp\AdminPage;
 use RebelCode\Spotlight\Instagram\Wp\SubMenu;
+use RebelCode\Spotlight\Instagram\Wp\AdminPage;
+use RebelCode\Spotlight\Instagram\Module;
+use Psr\Container\ContainerInterface;
+use Dhii\Services\Factory;
+use Dhii\Services\Factories\Value;
+use Dhii\Services\Factories\Constructor;
+use Dhii\Services\Extension;
 
 /**
  * This module is only used for development purposes.

@@ -2,16 +2,16 @@
 
 namespace RebelCode\Spotlight\Instagram\PostTypes;
 
-use Exception;
-use RebelCode\Iris\Store;
-use RebelCode\Spotlight\Instagram\Engine\Data\Source\UserSource;
-use RebelCode\Spotlight\Instagram\IgApi\AccessToken;
-use RebelCode\Spotlight\Instagram\IgApi\IgAccount;
-use RebelCode\Spotlight\Instagram\IgApi\IgUser;
-use RebelCode\Spotlight\Instagram\Wp\PostType;
-use RuntimeException;
-use WP_Error;
 use WP_Post;
+use WP_Error;
+use RuntimeException;
+use RebelCode\Spotlight\Instagram\Wp\PostType;
+use RebelCode\Spotlight\Instagram\IgApi\IgUser;
+use RebelCode\Spotlight\Instagram\IgApi\IgAccount;
+use RebelCode\Spotlight\Instagram\IgApi\AccessToken;
+use RebelCode\Spotlight\Instagram\Engine\Data\Source\UserSource;
+use RebelCode\Iris\Store;
+use Exception;
 
 /**
  * The post type for accounts.
@@ -338,5 +338,30 @@ class AccountPostType extends PostType
         }
 
         return $iv;
+    }
+
+    /**
+     * Finds and retrieves a personal account.
+     *
+     * @since 1.6.13
+     *
+     * @param PostType $cpt The post type instance.
+     *
+     * @return IgAccount|false The found personal account, or false if none could be found.
+     */
+    public static function findPersonalAccount(PostType $cpt)
+    {
+        $accounts = $cpt->query([
+            'meta_query' => [
+                [
+                    'key' => AccountPostType::TYPE,
+                    'value' => IgUser::TYPE_PERSONAL,
+                ],
+            ],
+        ]);
+
+        return count($accounts) > 0
+            ? AccountPostType::fromWpPost($accounts[0])
+            : false;
     }
 }
