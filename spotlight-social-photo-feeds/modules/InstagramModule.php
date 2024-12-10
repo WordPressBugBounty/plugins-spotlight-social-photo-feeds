@@ -2,21 +2,21 @@
 
 namespace RebelCode\Spotlight\Instagram\Modules;
 
-use Dhii\Services\Factories\Alias;
-use Dhii\Services\Factories\Constructor;
-use Dhii\Services\Factories\ServiceList;
-use Dhii\Services\Factories\StringService;
-use Dhii\Services\Factories\Value;
-use Dhii\Services\Factory;
-use Psr\Container\ContainerInterface;
-use RebelCode\Spotlight\Instagram\Actions\AuthCallbackListener;
-use RebelCode\Spotlight\Instagram\IgApi\IgApiClient;
-use RebelCode\Spotlight\Instagram\IgApi\IgBasicApiClient;
-use RebelCode\Spotlight\Instagram\IgApi\IgGraphApiClient;
-use RebelCode\Spotlight\Instagram\Module;
 use RebelCode\WordPress\Http\WpClient;
-use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\CachePool;
 use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\SilentPool;
+use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\CachePool;
+use RebelCode\Spotlight\Instagram\Module;
+use RebelCode\Spotlight\Instagram\IgApi\IgGraphApiClient;
+use RebelCode\Spotlight\Instagram\IgApi\IgBasicApiClient;
+use RebelCode\Spotlight\Instagram\IgApi\IgApiClient;
+use RebelCode\Spotlight\Instagram\Actions\AuthCallbackListener;
+use Psr\Container\ContainerInterface;
+use Dhii\Services\Factory;
+use Dhii\Services\Factories\Value;
+use Dhii\Services\Factories\StringService;
+use Dhii\Services\Factories\ServiceList;
+use Dhii\Services\Factories\Constructor;
+use Dhii\Services\Factories\Alias;
 
 /**
  * The module that contains all functionality related to Instagram's APIs.
@@ -103,9 +103,6 @@ class InstagramModule extends Module
                 'api/graph/client',
             ]),
 
-            // The URL to the auth server
-            'api/auth/url' => new Value('https://auth.spotlightwp.com'),
-
             // Listens to requests from the auth server to save accounts into the DB
             'api/auth/listener' => new Constructor(AuthCallbackListener::class, [
                 'api/client',
@@ -118,8 +115,8 @@ class InstagramModule extends Module
             //==========================================================================
 
             // The URL to the auth dialog for the Basic Display API
-            'api/basic/auth_url' => new Factory(['api/auth/url', 'api/state'], function ($url, $state) {
-                return "{$url}/dialog/personal?state={$state}";
+            'api/basic/auth_url' => new Factory(['api/state'], function ($state) {
+                return "https://auth2.spotlightwp.com/dialog/personal?state={$state}";
             }),
 
             // The basic display API client
@@ -137,8 +134,8 @@ class InstagramModule extends Module
             //==========================================================================
 
             // The URL to auth dialog for the Graph API
-            'api/graph/auth_url' => new Factory(['api/auth/url', 'api/state'], function ($url, $state) {
-                return "{$url}/dialog/business?state={$state}";
+            'api/graph/auth_url' => new Factory(['api/state'], function ($state) {
+                return "https://auth.spotlightwp.com/dialog/business?state={$state}";
             }),
 
             // The Graph API client

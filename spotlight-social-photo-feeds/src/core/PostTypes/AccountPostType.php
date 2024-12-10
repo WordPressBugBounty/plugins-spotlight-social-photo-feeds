@@ -12,6 +12,7 @@ use RebelCode\Spotlight\Instagram\IgApi\AccessToken;
 use RebelCode\Spotlight\Instagram\Engine\Data\Source\UserSource;
 use RebelCode\Iris\Store;
 use Exception;
+use DateTime;
 
 /**
  * The post type for accounts.
@@ -43,17 +44,23 @@ class AccountPostType extends PostType
     // Custom account-specific posts
     const CUSTOM_MEDIA = '_sli_custom_media';
 
-    /** @var Store */
+    /**
+     * @var Store 
+     */
     protected $store;
 
-    /** Constructor */
+    /**
+     * Constructor 
+     */
     public function __construct(string $slug, array $args, array $fields, Store $store)
     {
         parent::__construct($slug, $args, $fields);
         $this->store = $store;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc 
+     */
     public function delete($id)
     {
         // Make sure the account exists
@@ -93,7 +100,8 @@ class AccountPostType extends PostType
             (int) $post->{static::ACCESS_EXPIRY}
         );
 
-        $user = IgUser::create([
+        $user = IgUser::create(
+            [
             'id' => $post->{static::USER_ID},
             'username' => $post->{static::USERNAME},
             'name' => $post->{static::NAME},
@@ -104,7 +112,8 @@ class AccountPostType extends PostType
             'followers_count' => $post->{static::FOLLOWERS_COUNT},
             'follows_count' => $post->{static::FOLLOWS_COUNT},
             'website' => $post->{static::WEBSITE},
-        ]);
+            ]
+        );
 
         return new IgAccount($user, $accessToken);
     }
@@ -175,14 +184,16 @@ class AccountPostType extends PostType
      */
     public static function findBusinessAccount(PostType $cpt)
     {
-        $accounts = $cpt->query([
+        $accounts = $cpt->query(
+            [
             'meta_query' => [
                 [
                     'key' => AccountPostType::TYPE,
                     'value' => IgUser::TYPE_BUSINESS,
                 ],
             ],
-        ]);
+            ]
+        );
 
         return count($accounts) > 0
             ? AccountPostType::fromWpPost($accounts[0])
@@ -201,14 +212,16 @@ class AccountPostType extends PostType
      */
     public static function getByUsername(PostType $cpt, string $username)
     {
-        $posts = $cpt->query([
+        $posts = $cpt->query(
+            [
             'meta_query' => [
                 [
                     'key' => static::USERNAME,
                     'value' => $username,
                 ],
             ],
-        ]);
+            ]
+        );
 
         return count($posts) > 0
             ? AccountPostType::fromWpPost($posts[0])
@@ -229,14 +242,16 @@ class AccountPostType extends PostType
      */
     public static function insertOrUpdate(PostType $cpt, IgAccount $account)
     {
-        $existing = $cpt->query([
+        $existing = $cpt->query(
+            [
             'meta_query' => [
                 [
                     'key' => static::USER_ID,
                     'value' => $account->user->id,
                 ],
             ],
-        ]);
+            ]
+        );
 
         $data = static::toWpPost($account);
 
@@ -273,7 +288,7 @@ class AccountPostType extends PostType
      * Encrypts an access token.
      *
      * @param string $accessToken The unencrypted access token.
-     * @param string $initVector The initialization vector for the cryptographic algorithm.
+     * @param string $initVector  The initialization vector for the cryptographic algorithm.
      *
      * @return string The encrypted access token string.
      */
@@ -290,7 +305,7 @@ class AccountPostType extends PostType
      * Encrypts an access token.
      *
      * @param string $encryptedOrRaw The encrypted access token, or the unencrypted access token.
-     * @param string $initVector The initialization vector for the cryptographic algorithm.
+     * @param string $initVector     The initialization vector for the cryptographic algorithm.
      *
      * @return string The unencrypted access token string. If the first argument is already unencrypted, it's value
      *                will be returned without any further decrypting.
@@ -351,14 +366,31 @@ class AccountPostType extends PostType
      */
     public static function findPersonalAccount(PostType $cpt)
     {
-        $accounts = $cpt->query([
+        $accounts = $cpt->query(
+            [
             'meta_query' => [
                 [
                     'key' => AccountPostType::TYPE,
                     'value' => IgUser::TYPE_PERSONAL,
                 ],
             ],
-        ]);
+            ]
+        );
+
+        $comparisonDate = new DateTime("2024-12-04T00:00:00Z");
+
+        foreach ($accounts as $k => $post) {
+            try {
+                $postDate = new DateTime($post->post_date_gmt ?? $post->post_date);
+                if ($postDate >= $comparisonDate) {
+                    unset($accounts[$k]);
+                }
+            } catch (Exception $e) {
+                unset($accounts[$k]);
+            }
+        }
+
+        $accounts = array_values($accounts);
 
         return count($accounts) > 0
             ? AccountPostType::fromWpPost($accounts[0])

@@ -2,12 +2,12 @@
 
 namespace RebelCode\Spotlight\Instagram\RestApi\Transformers;
 
-use Dhii\Transformer\TransformerInterface;
-use RebelCode\Spotlight\Instagram\IgApi\IgAccount;
-use RebelCode\Spotlight\Instagram\PostTypes\AccountPostType;
-use RebelCode\Spotlight\Instagram\PostTypes\FeedPostType;
-use RebelCode\Spotlight\Instagram\Wp\PostType;
 use WP_Post;
+use RebelCode\Spotlight\Instagram\Wp\PostType;
+use RebelCode\Spotlight\Instagram\PostTypes\FeedPostType;
+use RebelCode\Spotlight\Instagram\PostTypes\AccountPostType;
+use RebelCode\Spotlight\Instagram\IgApi\IgAccount;
+use Dhii\Transformer\TransformerInterface;
 
 /**
  * Transforms {@link IgAccount} instances into REST API response format.
@@ -92,6 +92,7 @@ class AccountTransformer implements TransformerInterface
             'mediaCount' => $user->mediaCount,
             'followersCount' => $user->followersCount,
             'usages' => $usages,
+            'creationDate' => $post->post_date_gmt ?? $post->post_date
         ];
     }
 }

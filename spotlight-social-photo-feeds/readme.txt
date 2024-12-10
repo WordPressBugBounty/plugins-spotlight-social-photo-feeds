@@ -6,7 +6,7 @@ Tags: Instagram, Instagram feed, Instagram embed, Instagram widget, Instagram bl
 Requires at least: 5.7
 Requires PHP: 7.1
 Tested up to: 6.6
-Stable tag: 1.6.16
+Stable tag: 1.7.0
 License: GPLv3
 
 Instagram feeds made easy. Responsive, customizable, accessible, and SEO-friendly out of the box. Includes Instagram blocks & oEmbed support.
@@ -266,6 +266,11 @@ Yes, aside from the customisation options provided by Spotlight itself, the plug
 7. [Premium] Create shoppable Instagram Feeds and Instagram bio link pages in seconds. Link Instagram posts to articles, products, recipes, and much more.
 
 == Changelog ==
+
+= 1.7.0 (2024-12-10) =
+
+**Added**
+- Implemented Instagram Business Basic API to replace the deprecated Personal API for enhanced functionality and compliance with platform requirements.
 
 = 1.6.16 (2024-11-04) =
 
