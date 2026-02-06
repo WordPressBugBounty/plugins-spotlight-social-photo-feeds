@@ -5,8 +5,8 @@ Plugin URI: https://spotlightwp.com
 Tags: Instagram, Instagram feed, Instagram embed, Instagram widget, Instagram block
 Requires at least: 5.7
 Requires PHP: 7.1
-Tested up to: 6.8
-Stable tag: 1.7.3
+Tested up to: 6.9
+Stable tag: 1.7.4
 License: GPLv3
 
 Instagram feeds made easy. Responsive, customizable, accessible, and SEO-friendly out of the box. Includes Instagram blocks & oEmbed support.
@@ -266,6 +266,15 @@ Yes, aside from the customisation options provided by Spotlight itself, the plug
 7. [Premium] Create shoppable Instagram Feeds and Instagram bio link pages in seconds. Link Instagram posts to articles, products, recipes, and much more.
 
 == Changelog ==
+
+= 1.7.4 (2025-11-11) =
+
+**Added**
+- Added a 4:5 image ratio option to the Grid layout.
+- Added 3:4 and 4:5 image ratio options to the Highlight and Slider layouts.
+
+**Fixed**
+- Fixed misaligned arrows in Slider layouts.
 
 = 1.7.3 (2025-09-02) =
 
