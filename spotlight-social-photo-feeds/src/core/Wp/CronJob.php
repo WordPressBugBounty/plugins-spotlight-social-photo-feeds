@@ -48,7 +48,7 @@ class CronJob
      *                              will be scheduled for a one-time invocation only.
      * @param callable[]  $handlers Optional handlers to register with the cron job. See {@link CronJob::register()}.
      */
-    public function __construct(string $hook, array $args = [], string $repeat = null, array $handlers = [])
+    public function __construct(string $hook, array $args = [], ?string $repeat = null, array $handlers = [])
     {
         $this->hook = $hook;
         $this->args = $args;

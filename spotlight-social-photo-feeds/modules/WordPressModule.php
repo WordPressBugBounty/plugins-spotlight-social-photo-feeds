@@ -96,7 +96,7 @@ class WordPressModule extends Module
             'migrations/1.7.2/delete_error_log' => new FuncService(
                 ['@wp/db'],
                 function ($oldVer, $newVer, $wpdb) {
-                    if (version_compare($oldVer, '1.7.2', '<')) {
+                    if (version_compare($oldVer ?? '0.0', '1.7.2', '<')) {
                         try {
                             if (!ErrorLog::delete()) {
                                 ErrorLog::message('ErrorLog::delete() failed');

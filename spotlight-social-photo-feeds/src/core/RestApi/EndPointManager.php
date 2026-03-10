@@ -74,7 +74,7 @@ class EndPointManager
      *
      * @return callable The callback.
      */
-    protected function getPermissionCallback(AuthGuardInterface $auth = null)
+    protected function getPermissionCallback(?AuthGuardInterface $auth = null)
     {
         if ($auth === null) {
             return '__return_true';

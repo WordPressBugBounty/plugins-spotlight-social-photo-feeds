@@ -1,12 +1,11 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache;
 
 use Exception;
 use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\InvalidArgumentException as InvalidArgumentExceptionInterface;
 use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
-
 /**
  * Wraps a pool that throws wrong exceptions in a 100% PSR-compliant one by hiding exceptions :(
  *
@@ -18,7 +17,6 @@ class SilentPool implements CacheInterface
      * @var CacheInterface
      */
     protected $cache;
-
     /**
      * @param CacheInterface $cache A possibly non-compliant cache pool.
      */
@@ -26,7 +24,6 @@ class SilentPool implements CacheInterface
     {
         $this->cache = $cache;
     }
-
     /**
      * @inheritDoc
      */
@@ -38,11 +35,9 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return $default;
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -54,11 +49,9 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return false;
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -70,11 +63,9 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return false;
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -83,11 +74,9 @@ class SilentPool implements CacheInterface
         try {
             return $this->cache->clear();
         } catch (Exception $e) {
-
             return false;
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -99,11 +88,9 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return [];
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -115,11 +102,9 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return false;
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -131,11 +116,9 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return false;
         }
     }
-
     /**
      * @inheritDoc
      */
@@ -147,7 +130,6 @@ class SilentPool implements CacheInterface
             if ($e instanceof InvalidArgumentExceptionInterface) {
                 throw $e;
             }
-
             return false;
         }
     }

@@ -257,7 +257,7 @@ class PostType
      *
      * @return array The prepared query arguments.
      */
-    public static function queryArgs(string $slug, int $num = null, int $page = 1, array $extra = [])
+    public static function queryArgs(string $slug, ?int $num = null, int $page = 1, array $extra = [])
     {
         $base = [
             'post_type' => $slug,

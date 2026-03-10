@@ -77,7 +77,7 @@ class Menu
         string $label,
         string $capability,
         string $icon = '',
-        int $position = null,
+        ?int $position = null,
         array $items = []
     ) {
         $this->page = $page;

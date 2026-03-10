@@ -59,7 +59,7 @@ class AccountTransformer implements TransformerInterface
      *
      * @return array
      */
-    public static function toArray(WP_Post $post, PostType $feeds = null)
+    public static function toArray(WP_Post $post, ?PostType $feeds = null)
     {
         $user = AccountPostType::fromWpPost($post)->user;
 

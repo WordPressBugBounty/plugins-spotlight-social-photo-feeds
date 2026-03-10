@@ -150,11 +150,11 @@ if (!function_exists('slInstaRunPlugin')) {
                 $slInsta->isFreeActive = $slInsta->isFreeActive || !$info->isPro;
                 $slInsta->isProActive = $slInsta->isProActive || $info->isPro;
 
-                if (!$info->isPro && version_compare($info->version, $slInsta->freeVersion ?? '0.0', '>')) {
+                if (!$info->isPro && version_compare($info->version ?? '0.0', $slInsta->freeVersion ?? '0.0', '>')) {
                     $slInsta->freeVersion = $info->version;
                 }
 
-                if ($info->isPro && version_compare($info->version, $slInsta->proVersion ?? '0.0', '>')) {
+                if ($info->isPro && version_compare($info->version ?? '0.0', $slInsta->proVersion ?? '0.0', '>')) {
                     $slInsta->proVersion = $info->version;
                 }
             }

@@ -2,18 +2,18 @@
 
 namespace RebelCode\Spotlight\Instagram\Modules;
 
-use Dhii\Services\Factories\Constructor;
-use Dhii\Services\Factories\FuncService;
-use Dhii\Services\Factories\Value;
-use Psr\Container\ContainerInterface;
-use RebelCode\Iris\Data\Source;
-use RebelCode\Spotlight\Instagram\Actions\DeleteAllPostsAction;
-use RebelCode\Spotlight\Instagram\Di\ArrayExtension;
-use RebelCode\Spotlight\Instagram\Engine\IgPostStore;
-use RebelCode\Spotlight\Instagram\Module;
-use RebelCode\Spotlight\Instagram\PostTypes\MediaPostType;
-use RebelCode\Spotlight\Instagram\Wp\MetaField;
 use RebelCode\Spotlight\Instagram\Wp\PostType;
+use RebelCode\Spotlight\Instagram\Wp\MetaField;
+use RebelCode\Spotlight\Instagram\PostTypes\MediaPostType;
+use RebelCode\Spotlight\Instagram\Module;
+use RebelCode\Spotlight\Instagram\Engine\IgPostStore;
+use RebelCode\Spotlight\Instagram\Di\ArrayExtension;
+use RebelCode\Spotlight\Instagram\Actions\DeleteAllPostsAction;
+use RebelCode\Iris\Data\Source;
+use Psr\Container\ContainerInterface;
+use Dhii\Services\Factories\Value;
+use Dhii\Services\Factories\FuncService;
+use Dhii\Services\Factories\Constructor;
 
 /**
  * The module that adds the media post type and all related functionality to the plugin.
@@ -89,7 +89,7 @@ class MediaModule extends Module
             'migrations/0.4.1/generate_thumbnails' => new FuncService(
                 ['@media/cpt', '@engine/store'],
                 function ($v1, $v2, PostType $mediaCpt, IgPostStore $store) {
-                    if (version_compare($v1, '0.4.1', '<')) {
+                    if (version_compare($v1 ?? '0.0', '0.4.1', '<')) {
                         foreach ($mediaCpt->query() as $post) {
                             // Extend the time limit by 10 seconds
                             set_time_limit(10);
@@ -106,7 +106,7 @@ class MediaModule extends Module
             ),
 
             'migrations/0.9/update_sources_meta' => new FuncService(['@wp/db'], function ($oldVer, $newVer, $wpdb) {
-                if (version_compare($oldVer, '0.9', '<')) {
+                if (version_compare($oldVer ?? '0.0', '0.9', '<')) {
                     $sourceNameQuery = sprintf(
                         "SELECT post_id, meta_value FROM %s WHERE meta_key = '%s'",
                         $wpdb->postmeta,

@@ -55,7 +55,7 @@ class EndPoint
      * @param callable                $handler     The handler.
      * @param AuthGuardInterface|null $authHandler Optional authorization handler.
      */
-    public function __construct($route, array $methods, callable $handler, AuthGuardInterface $authHandler = null)
+    public function __construct($route, array $methods, callable $handler, ?AuthGuardInterface $authHandler = null)
     {
         $this->route = $route;
         $this->methods = $methods;

@@ -166,7 +166,7 @@ class Arrays
      *
      * @return string A string containing the concatenated values, each separated by the $glue string.
      */
-    public static function join(array $array, string $glue, callable $fn = null): string
+    public static function join(array $array, string $glue, ?callable $fn = null): string
     {
         if ($fn === null) {
             return implode($glue, $array);
@@ -185,8 +185,12 @@ class Arrays
      *
      * @return mixed|null The element that satisfied the condition, or null if no element satisfied the condition.
      */
-    public static function find(array $array, callable $fn = null)
+    public static function find(array $array, ?callable $fn = null)
     {
+        if ($fn === null) {
+            return null;
+        }
+
         foreach ($array as $key => $value) {
             if ($fn($value, $key)) {
                 return $value;

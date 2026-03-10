@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache;
 
 use DateInterval;
@@ -13,7 +13,6 @@ use wpdb;
 use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\Exception\CacheException;
 use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\Exception\InvalidArgumentException;
 use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\InvalidArgumentException as InvalidArgumentExceptionInterface;
-
 use function is_int;
 use function is_iterable;
 use function is_null;
@@ -27,7 +26,6 @@ use function get_option;
 use function get_transient;
 use function set_transient;
 use function array_map;
-
 /**
  * {@inheritDoc}
  *
@@ -37,13 +35,11 @@ class CachePool implements CacheInterface
 {
     public const RESERVED_KEY_SYMBOLS = '{}()/\@:';
     public const NAMESPACE_SEPARATOR = '/';
-
     protected const TABLE_NAME_OPTIONS = 'options';
     protected const FIELD_NAME_OPTION_NAME = 'option_name';
     protected const OPTION_NAME_PREFIX_TRANSIENT = '_transient_';
     protected const OPTION_NAME_PREFIX_TIMEOUT = 'timeout_';
     protected const OPTION_NAME_MAX_LENGTH = 191;
-
     /**
      * @var wpdb
      */
@@ -60,7 +56,6 @@ class CachePool implements CacheInterface
      * @var int|DateInterval
      */
     protected $defaultTtl;
-
     /**
      * @param wpdb   $wpdb         The WP database object.
      * @param string $poolName     The name of this cache pool. Must be unique to this instance.
@@ -72,13 +67,11 @@ class CachePool implements CacheInterface
         if ($poolName === static::OPTION_NAME_PREFIX_TIMEOUT) {
             throw new RangeException(sprintf('Pool name cannot be "%1$s"', static::OPTION_NAME_PREFIX_TIMEOUT));
         }
-
         $this->wpdb = $wpdb;
         $this->poolName = $poolName;
         $this->defaultValue = $defaultValue;
         $this->defaultTtl = $defaultTtl;
     }
-
     /**
      * @inheritDoc
      *
@@ -88,7 +81,6 @@ class CachePool implements CacheInterface
     {
         $this->validateKey($key);
         $transientKey = $this->prepareKey($key);
-
         try {
             $value = $this->getTransient($transientKey);
         } catch (RangeException $e) {
@@ -97,10 +89,8 @@ class CachePool implements CacheInterface
             $message = sprintf('Could not retrieve cache for key "%1$s": %2$s', $key, $e->getMessage());
             throw new CacheException($message, 0, $e);
         }
-
         return $value;
     }
-
     /**
      * @inheritDoc
      *
@@ -112,31 +102,23 @@ class CachePool implements CacheInterface
         $this->validateKey($key);
         $origKey = $key;
         $key = $this->prepareKey($key);
-
         $ttl = is_null($ttl) ? $this->defaultTtl : $ttl;
-
         try {
-            $ttl = $ttl instanceof DateInterval
-                ? $this->getIntervalDuration($ttl)
-                : $ttl;
+            $ttl = $ttl instanceof DateInterval ? $this->getIntervalDuration($ttl) : $ttl;
         } catch (Exception $e) {
             throw new CacheException(sprintf('Could not normalize cache TTL: %s', $e->getMessage()));
         }
-
         if (!is_int($ttl)) {
             throw new InvalidArgumentException('The specified cache TTL is invalid');
         }
-
         try {
             $this->setTransient($key, $value, $ttl);
         } catch (RuntimeException $e) {
             $message = sprintf('Could not write value for key "%1$s" to cache: %2$s', $origKey, $e->getMessage());
             throw new CacheException($message, 0, $e);
         }
-
         return true;
     }
-
     /**
      * @inheritDoc
      *
@@ -147,17 +129,14 @@ class CachePool implements CacheInterface
         $this->validateKey($key);
         $origKey = $key;
         $key = $this->prepareKey($key);
-
         try {
             $this->deleteTransient($key);
         } catch (Exception $e) {
             $message = sprintf('Failed to delete cache for key "%1$s": %2$s', $origKey, $e->getMessage());
             throw new CacheException($message, 0, $e);
         }
-
         return true;
     }
-
     /**
      * @inheritDoc
      *
@@ -171,10 +150,8 @@ class CachePool implements CacheInterface
         } catch (Exception|InvalidArgumentExceptionInterface $e) {
             throw new CacheException(sprintf('Failed to clear cache: %s', $e->getMessage()), 0, $e);
         }
-
         return true;
     }
-
     /**
      * @inheritDoc
      *
@@ -185,16 +162,13 @@ class CachePool implements CacheInterface
         if (!is_iterable($keys)) {
             throw new InvalidArgumentException('List of keys is not an iterable value');
         }
-
         $entries = [];
         foreach ($keys as $key) {
             $value = $this->get($key, $default);
             $entries[$key] = $value;
         }
-
         return $entries;
     }
-
     /**
      * @inheritDoc
      *
@@ -205,22 +179,16 @@ class CachePool implements CacheInterface
         if (!is_iterable($values)) {
             throw new InvalidArgumentException('List of keys is not an iterable value');
         }
-
         try {
-            $ttl = $ttl instanceof DateInterval
-                ? $this->getIntervalDuration($ttl)
-                : $ttl;
+            $ttl = $ttl instanceof DateInterval ? $this->getIntervalDuration($ttl) : $ttl;
         } catch (Exception $e) {
             throw new CacheException(sprintf('Could not normalize cache TTL: %s', $e->getMessage()));
         }
-
         foreach ($values as $key => $value) {
             $this->set($key, $value, $ttl);
         }
-
         return true;
     }
-
     /**
      * @inheritDoc
      *
@@ -231,14 +199,11 @@ class CachePool implements CacheInterface
         if (!is_iterable($keys)) {
             throw new InvalidArgumentException('List of keys is not an iterable value');
         }
-
         foreach ($keys as $key) {
             $this->delete($key);
         }
-
         return true;
     }
-
     /**
      * @inheritDoc
      *
@@ -248,10 +213,8 @@ class CachePool implements CacheInterface
     {
         $default = $this->defaultValue;
         $value = $this->get($key, $default);
-
         return $value !== $default;
     }
-
     /**
      * Retrieves a transient value, by key.
      *
@@ -265,14 +228,11 @@ class CachePool implements CacheInterface
     protected function getTransient(string $key)
     {
         $value = $this->getTransientOriginal($key);
-
         if ($value !== false) {
             return $value;
         }
-
         $prefix = static::OPTION_NAME_PREFIX_TRANSIENT;
         $optionKey = "{$prefix}{$key}";
-
         try {
             $this->getOption($optionKey);
         } catch (RangeException $e) {
@@ -280,10 +240,8 @@ class CachePool implements CacheInterface
         } catch (RuntimeException $e) {
             throw new RuntimeException(sprintf('Could not verify existence of transient "%1$s"', $key), 0, $e);
         }
-
         return $value;
     }
-
     /**
      * Retrieves a transient value as is.
      *
@@ -294,10 +252,8 @@ class CachePool implements CacheInterface
     protected function getTransientOriginal(string $key)
     {
         $value = get_transient($key);
-
         return $value;
     }
-
     /**
      * Assigns a transient value, by key.
      *
@@ -311,12 +267,10 @@ class CachePool implements CacheInterface
     protected function setTransient(string $key, $value, int $ttl): void
     {
         $this->validateTransientKey($key);
-
-        if(!set_transient($key, $value, $ttl)) {
+        if (!set_transient($key, $value, $ttl)) {
             throw new RuntimeException(sprintf('set_transient() failed with key "%1$s" with TTL %2$ss', $key, $ttl));
         }
     }
-
     /**
      * Retrieves an option value by name.
      *
@@ -331,14 +285,11 @@ class CachePool implements CacheInterface
     {
         $errorValue = $this->defaultValue;
         $value = $this->getOptionOriginal($key, $errorValue);
-
         if ($value === $errorValue) {
             throw new RangeException(sprintf('Option for key "%1$s" does not exist', $key));
         }
-
         return $value;
     }
-
     /**
      * Retrieves an option value by name.
      *
@@ -351,7 +302,6 @@ class CachePool implements CacheInterface
     {
         return get_option($key, $default);
     }
-
     /**
      * Deletes a transient with the specified key.
      *
@@ -365,7 +315,6 @@ class CachePool implements CacheInterface
             throw new RuntimeException(sprintf('delete_transient() failed for key "%1$s"', $key));
         }
     }
-
     /**
      * Validates a cache key.
      *
@@ -377,22 +326,15 @@ class CachePool implements CacheInterface
     {
         $prefix = $this->getTimeoutOptionNamePrefix();
         if (strlen("{$prefix}{$key}") > static::OPTION_NAME_MAX_LENGTH) {
-            throw new InvalidArgumentException(sprintf(
-                'Given the %1$d char length of this cache pool\'s name, the key length must not exceed %2$d chars',
-                strlen($this->poolName),
-                static::OPTION_NAME_MAX_LENGTH - strlen($prefix)
-            ));
+            throw new InvalidArgumentException(sprintf('Given the %1$d char length of this cache pool\'s name, the key length must not exceed %2$d chars', strlen($this->poolName), static::OPTION_NAME_MAX_LENGTH - strlen($prefix)));
         }
-
         $reservedSymbols = str_split(static::RESERVED_KEY_SYMBOLS, 1);
-
         foreach ($reservedSymbols as $symbol) {
             if (strpos($key, $symbol) !== false) {
                 throw new InvalidArgumentException(sprintf('Cache key "%1$s" is invalid', $key));
             }
         }
     }
-
     /**
      * Validates a transient key.
      *
@@ -408,7 +350,6 @@ class CachePool implements CacheInterface
             throw new RangeException(sprintf('Transient key "%1$s" length is %2$d chars, which exceeds max length of %3$d chars', $key, $keyLength, $maxLength));
         }
     }
-
     /**
      * Retrieves the amount of characters at most allowed in a transient key.
      *
@@ -418,10 +359,8 @@ class CachePool implements CacheInterface
     {
         $longestPrefix = $this->getTransientTimeoutOptionNamePrefix();
         $keyMaxLength = static::OPTION_NAME_MAX_LENGTH - strlen($longestPrefix);
-
         return $keyMaxLength;
     }
-
     /**
      * Prepares a cache key, giving it a namespace.
      *
@@ -435,7 +374,6 @@ class CachePool implements CacheInterface
         $separator = static::NAMESPACE_SEPARATOR;
         return "{$namespace}{$separator}{$key}";
     }
-
     /**
      * Retrieves all keys that correspond to this cache pool.
      *
@@ -448,13 +386,11 @@ class CachePool implements CacheInterface
         $tableName = $this->getTableName(static::TABLE_NAME_OPTIONS);
         $fieldName = static::FIELD_NAME_OPTION_NAME;
         $prefix = $this->getOptionNamePrefix();
-        $query = "SELECT `$fieldName` FROM `$tableName` WHERE `$fieldName` LIKE '$prefix%'";
+        $query = "SELECT `{$fieldName}` FROM `{$tableName}` WHERE `{$fieldName}` LIKE '{$prefix}%'";
         $results = $this->selectColumn($query, $fieldName);
         $keys = $this->getCacheKeysFromOptionNames($results);
-
         return $keys;
     }
-
     /**
      * Runs a SELECT query, and retrieves a list of values for a field with the specified name.
      *
@@ -468,12 +404,10 @@ class CachePool implements CacheInterface
     {
         $query = $this->prepareQuery($query, $args);
         $results = $this->wpdb->get_results($query, ARRAY_A);
-
         return array_map(function ($row) use ($columnName) {
             return $row[$columnName] ?? null;
         }, $results);
     }
-
     /**
      * Retrieve the name of a DB table by its identifier.
      *
@@ -485,10 +419,8 @@ class CachePool implements CacheInterface
     {
         $prefix = $this->wpdb->prefix;
         $tableName = "{$prefix}{$identifier}";
-
         return $tableName;
     }
-
     /**
      * Prepares a parameterized query.
      *
@@ -502,12 +434,9 @@ class CachePool implements CacheInterface
         if (empty($params)) {
             return $query;
         }
-
         $prepared = $this->wpdb->prepare($query, ...$params);
-
         return $prepared;
     }
-
     /**
      * Retrieves all cache keys that correspond to the given list of option names
      *
@@ -520,15 +449,12 @@ class CachePool implements CacheInterface
     protected function getCacheKeysFromOptionNames(iterable $optionNames): iterable
     {
         $keys = [];
-
         foreach ($optionNames as $name) {
             $key = $this->getCacheKeyFromOptionName($name);
             $keys[] = $key;
         }
-
         return $keys;
     }
-
     /**
      * Retrieves the prefix of option names that represent transients of this cache pool.
      *
@@ -540,10 +466,8 @@ class CachePool implements CacheInterface
         $separator = static::NAMESPACE_SEPARATOR;
         $namespace = $this->poolName;
         $prefix = "{$transientPrefix}{$namespace}{$separator}";
-
         return $prefix;
     }
-
     /**
      * Retrieves the prefix of option names that represent transient timeouts of this cache pool.
      *
@@ -555,10 +479,8 @@ class CachePool implements CacheInterface
         $separator = static::NAMESPACE_SEPARATOR;
         $namespace = $this->poolName;
         $prefix = "{$transientPrefix}{$namespace}{$separator}";
-
         return $prefix;
     }
-
     /**
      * Retrieves the prefix of an option name that represents a transient timeout.
      *
@@ -570,7 +492,6 @@ class CachePool implements CacheInterface
     {
         return static::OPTION_NAME_PREFIX_TRANSIENT . static::OPTION_NAME_PREFIX_TIMEOUT;
     }
-
     /**
      * Retrieves the cache key that corresponds to the specified option name.
      *
@@ -583,16 +504,12 @@ class CachePool implements CacheInterface
     protected function getCacheKeyFromOptionName(string $name): string
     {
         $prefix = $this->getOptionNamePrefix();
-
         if (strpos($name, $prefix) !== 0) {
             throw new RangeException(sprintf('Option name "%1$s" is not formed according to this cache pool', $name));
         }
-
         $key = substr($name, strlen($prefix));
-
         return $key;
     }
-
     /**
      * Retrieves the total duration from an interval.
      *
@@ -606,7 +523,6 @@ class CachePool implements CacheInterface
     {
         $reference = new DateTimeImmutable();
         $endTime = $reference->add($interval);
-
         return $endTime->getTimestamp() - $reference->getTimestamp();
     }
 }

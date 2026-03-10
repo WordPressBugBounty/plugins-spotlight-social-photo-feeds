@@ -45,7 +45,7 @@ class Server
         $this->importerLock = $importerLock;
     }
 
-    public function getFeedMedia(array $options = [], ?int $from = 0, int $num = null): array
+    public function getFeedMedia(array $options = [], ?int $from = 0, ?int $num = null): array
     {
         if (is_array($options['numPosts'] ?? null)) {
             $num = max(

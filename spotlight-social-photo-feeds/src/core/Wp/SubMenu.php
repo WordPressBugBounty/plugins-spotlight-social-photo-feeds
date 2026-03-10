@@ -64,7 +64,7 @@ class SubMenu
      *
      * @return static The created submenu instance.
      */
-    public static function page(AdminPage $page, string $slug, string $label, string $capability, int $position = null)
+    public static function page(AdminPage $page, string $slug, string $label, string $capability, ?int $position = null)
     {
         $submenu = new static();
         $submenu->slug = $slug;
@@ -89,7 +89,7 @@ class SubMenu
      *
      * @return static The created submenu instance.
      */
-    public static function url(string $url, string $label, string $capability, int $position = null)
+    public static function url(string $url, string $label, string $capability, ?int $position = null)
     {
         $submenu = new static();
         $submenu->slug = '';

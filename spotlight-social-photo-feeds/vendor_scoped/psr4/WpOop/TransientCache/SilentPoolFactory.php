@@ -1,10 +1,9 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache;
 
 use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
-
 /**
  * Creates cache pools that throw only PSR-legal exceptions.
  */
@@ -14,7 +13,6 @@ class SilentPoolFactory implements CachePoolFactoryInterface
      * @var CachePoolFactoryInterface
      */
     protected $factory;
-
     /**
      * @param CachePoolFactoryInterface $factory A factory of possibly non-compliant cache pools.
      */
@@ -22,7 +20,6 @@ class SilentPoolFactory implements CachePoolFactoryInterface
     {
         $this->factory = $factory;
     }
-
     /**
      * @inheritDoc
      */

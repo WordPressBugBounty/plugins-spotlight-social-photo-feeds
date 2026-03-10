@@ -2,14 +2,14 @@
 
 namespace RebelCode\Spotlight\Instagram\Modules;
 
-use Dhii\Services\Factories\FuncService;
-use Dhii\Services\Factories\Value;
-use Psr\Container\ContainerInterface;
-use RebelCode\Spotlight\Instagram\Config\ConfigEntry;
-use RebelCode\Spotlight\Instagram\Config\WpOption;
-use RebelCode\Spotlight\Instagram\Module;
-use RebelCode\Spotlight\Instagram\Utils\Arrays;
 use RebelCode\Spotlight\Instagram\Wp\CronJob;
+use RebelCode\Spotlight\Instagram\Utils\Arrays;
+use RebelCode\Spotlight\Instagram\Module;
+use RebelCode\Spotlight\Instagram\Config\WpOption;
+use RebelCode\Spotlight\Instagram\Config\ConfigEntry;
+use Psr\Container\ContainerInterface;
+use Dhii\Services\Factories\Value;
+use Dhii\Services\Factories\FuncService;
 
 /**
  * The module that adds the migration system.
@@ -55,7 +55,7 @@ class MigrationModule extends Module
         $isLocked = static::CHECK_LOCK && $lockCfg->getValue() === '1';
 
         // Compare the DB and current versions. If DB version is lower, run the migrations
-        if (!$isLocked && version_compare($dbVer, $currVer, '<')) {
+        if (!$isLocked && version_compare($dbVer ?? '0.0', $currVer ?? '0.0', '<')) {
             // Lock to prevent other threads from registering the cron
             $lockCfg->setValue('1');
 

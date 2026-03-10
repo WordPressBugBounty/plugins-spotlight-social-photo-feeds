@@ -28,7 +28,7 @@ class SaasResourceFetcher
      * @param string|null         $cacheKey The cache key where the cached responses from the server are stored.
      * @param CacheInterface|null $cache    The cache instance to use.
      */
-    public function __construct(ClientInterface $client, string $cacheKey = null, CacheInterface $cache = null)
+    public function __construct(ClientInterface $client, ?string $cacheKey = null, ?CacheInterface $cache = null)
     {
         $this->client = $client;
         $this->cacheKey = $cacheKey;

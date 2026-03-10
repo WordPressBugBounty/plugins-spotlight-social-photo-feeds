@@ -267,6 +267,17 @@ Yes, aside from the customisation options provided by Spotlight itself, the plug
 
 == Changelog ==
 
+= 1.7.5 (2026-03-10) =
+
+**Changed**
+- Updated Analytics date handling to use WordPress date/time functions for improved timezone consistency.
+- Improved null validation before calling `version_compare()` to prevent PHP 8.x deprecated warnings.
+- Modernized internal function signatures for better PHP 8.3 compatibility.
+
+**Fixed**
+- Fixed long-standing PHP 8.x deprecated warning caused by `version_compare()` being called with a null value.
+- Fixed multiple PHP 8.3 deprecated warnings and notices across Free and Premium versions.
+
 = 1.7.4 (2025-11-11) =
 
 **Added**

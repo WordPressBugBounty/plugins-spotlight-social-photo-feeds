@@ -60,7 +60,7 @@ class Asset
      * @param string|null $ver  The version of the asset, used for caching.
      * @param string[]    $deps Keys of dependency assets of the same type.
      */
-    public function __construct(int $type, string $url, string $ver = null, array $deps = [])
+    public function __construct(int $type, string $url, ?string $ver = null, array $deps = [])
     {
         $this->type = $type;
         $this->url = $url;
@@ -130,7 +130,7 @@ class Asset
      *
      * @return static
      */
-    public static function script(string $url, string $ver = null, array $deps = [])
+    public static function script(string $url, ?string $ver = null, array $deps = [])
     {
         return new static(static::SCRIPT, $url, $ver, $deps);
     }
@@ -146,7 +146,7 @@ class Asset
      *
      * @return static
      */
-    public static function style(string $url, string $ver = null, array $deps = [])
+    public static function style(string $url, ?string $ver = null, array $deps = [])
     {
         return new static(static::STYLE, $url, $ver, $deps);
     }
