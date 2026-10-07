@@ -3,10 +3,10 @@
 Contributors: RebelCode, spotlightsocialfeeds, markzahra, Mekku, jeangalea, gabygalea, omidakhavan
 Plugin URI: https://spotlightwp.com
 Tags: Instagram, Instagram feed, Instagram embed, Instagram widget, Instagram block
-Requires at least: 5.7
+Requires at least: 6.3
 Requires PHP: 7.1
-Tested up to: 6.9
-Stable tag: 1.7.4
+Tested up to: 7.1
+Stable tag: 1.8.0
 License: GPLv3
 
 Instagram feeds made easy. Responsive, customizable, accessible, and SEO-friendly out of the box. Includes Instagram blocks & oEmbed support.
@@ -266,6 +266,29 @@ Yes, aside from the customisation options provided by Spotlight itself, the plug
 7. [Premium] Create shoppable Instagram Feeds and Instagram bio link pages in seconds. Link Instagram posts to articles, products, recipes, and much more.
 
 == Changelog ==
+
+= 1.8.0 (2026-10-07) =
+
+**Added**
+- New feeds now start with a layout choice. Users with a connected account go straight to the customizer; users without one are guided through connecting first.
+- Feeds can be imported from the new feed layout step.
+
+**Changed**
+- The Spotlight block is now registered from block.json (Block API v3), so it works in the iframed block editor.
+- The Follow button is now a single link, so keyboard and screen reader users get one clear control.
+- Updated the UI build tools and dependencies to fix known security vulnerabilities.
+- Spotlight now requires WordPress 6.3 or later.
+
+**Fixed**
+- The profile photo was slightly off-centre in the Centered header style.
+- Spacing issues in the new feed screens on mobile.
+- The selected preview device button in the feed editor could show its icon blue on blue.
+- The feed editor preview flashed when switching to tablet or phone.
+- The plugin menu showed a "License" item that led to a "not allowed" page on sites not connected to Freemius.
+- The "Help" menu item on free sites left the WordPress admin instead of opening in a new tab.
+
+**Removed**
+- Removed an unused survey endpoint that contained a hardcoded external webhook URL.
 
 = 1.7.5 (2026-03-10) =
 
